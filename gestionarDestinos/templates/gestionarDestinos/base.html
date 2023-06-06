@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Cubaventura</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'gestionarDestinos/css/fontaw.min.css'%}">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'gestionarDestinos/lib/owlcarousel/assets/owl.carousel.min.css' %} " rel="stylesheet">
+    <link href="{% static 'gestionarDestinos/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css'%}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'gestionarDestinos/css/style.css' %} " rel="stylesheet">
+    <link href="{% static 'gestionarDestinos/css/sweetalert2.min.css' %} " rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid position-relative nav-bar p-0">
+        <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5">
+                <a href="{% url 'home' %}" class="navbar-brand">
+                    <h1 class="m-0 text-primary"><span class="text-dark">CUBA</span>VENTURA</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto py-0">
+                        <a href="{% url 'home' %}"  class="nav-item nav-link {% block home  %}{% endblock  %}">Home</a>
+                        <a href="{% url 'destinos' %}" class="nav-item nav-link {% block destinos  %}{% endblock  %}">Destinos</a>
+                        {% if user.is_active %}
+                        <a href="Reservas.html" class="nav-item nav-link {% block reservas  %}{% endblock  %}">Reservas</a>
+                        <a href="{% url 'Usuarios' %}"  class="nav-item nav-link {% block usuario  %}{% endblock  %}">Gestion Usuario</a>
+                        
+                        {% endif %}
+                       {% if perms.gestionarDestinos.add_destino %}
+                            <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle {% block administrar  %}{% endblock  %}" data-toggle="dropdown">Administrar</a>
+                            <div class="dropdown-menu border-0 rounded-0 m-0">
+                                <a href="{% url 'gestionarD' %}" class="dropdown-item {% block gestionarD  %}{% endblock  %}">Gestionar Destinos</a>
+                                
+                            </div>
+                            </div>
+                       {% endif %} 
+
+                        <a href="{% url 'blog' %}" class="nav-item nav-link {% block blog  %}{% endblock  %}">Blog</a>
+                        <a href="{% url 'contacto' %}" class="nav-item nav-link {% block contactenos  %}{% endblock  %}">Contactenos</a>
+
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="col-md-2  d-flex">                        
+                        <button class="btn btn-primary px-2"><a class="as" style="text-decoration: none;" href="{% url 'logout' %}">LogOut</a> </button>
+                    </div>
+
+                    {% else %}
+                    <div class="col-md-2  d-flex">
+                        <button class="btn btn-secondary px-2  "><a class="" style="text-decoration: none; color: black;" href="{% url 'login' %}">LogIN</a></button>
+                        &nbsp
+
+                        
+                        <button class="btn btn-primary px-2"><a class="as" style="text-decoration: none;" href="{% url 'register' %}">SingUp</a> </button>
+                    </div>
+                    {% endif %}
+            
+                    <div class="col-1">
+                        
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+
+    {% block contenido %}
+
+    {% endblock  %}
+
+
+
+    <div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
+        <div class="row pt-5">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <a href="" class="navbar-brand">
+                    <h1 class="text-primary"><span class="text-white">CUBA</span>VENTURA</h1>
+                </a>
+                <p>Sed ipsum clita tempor ipsum ipsum amet sit ipsum lorem amet labore rebum lorem ipsum dolor. No sed vero lorem dolor dolor</p>
+                <h6 class="text-white text-uppercase mt-4 mb-3" style="letter-spacing: 5px;">Siguenos</h6>
+                <div class="d-flex justify-content-start">
+                    <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+             &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Nuestros Servicios</h5>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Destinos</a>
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Reservas</a>
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Block</a>
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Contactenos</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Contactenos</h5>
+                <p><i class="fa fa-map-marker-alt mr-2"></i>direccion aqui</p>
+                <p><i class="fa fa-phone-alt mr-2"></i>numero de telefono aqui</p>
+                <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="{%static 'gestionarDestinos/js/jquery-3.4.1.min.js'%}"></script>
+    <script src="{%static 'gestionarDestinos/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{%static 'gestionarDestinos/lib/easing/easing.min.js'%}"></script>
+    <script src="{%static 'gestionarDestinos/lib/owlcarousel/owl.carousel.min.js'%}"></script>
+    <script src="{%static 'gestionarDestinos/lib/tempusdominus/js/moment.min.js'%}"></script>
+    <script src="{%static 'gestionarDestinos/lib/tempusdominus/js/moment-timezone.min.js'%}"></script>
+    <script src="{%static 'gestionarDestinos/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js'%}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{%static 'gestionarDestinos/js/jqBootstrapValidation.min.js'%}"></script>
+    <script src="{%static 'gestionarDestinos/js/contact.js'%}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{%static 'gestionarDestinos/js/main.js'%}"></script>
+    <script src="{%static 'gestionarDestinos/js/sweetalert2.all.min.js'%}"></script>
+    
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                    "title":"Atencion",
+                    "text":"{{m}}",
+                    "icon":"success"
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+    {% block js %}
+    {% endblock  %}
+    
+</body>
+
+</html>

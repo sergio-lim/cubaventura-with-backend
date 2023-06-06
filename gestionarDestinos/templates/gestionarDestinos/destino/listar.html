@@ -1,0 +1,72 @@
+{% extends 'gestionarDestinos/base.html' %}
+
+{% block administrar %}active{% endblock  %}
+{% block gestionarD %}active{% endblock  %}
+
+{% block js %}
+
+    <script>
+        function eliminarDestino(id)
+        {
+            Swal.fire({
+                "title":"Esta Seguro?",
+                "text" : "esta accion no se puede deshacer",
+                "icon" : "question",
+                "showCancelButton" : true,
+                "cancelButtonText" : "No, Cancelar",
+                "confirmButtonText" : "Si, Eliminar",
+                "reverseButtons" : true,
+                "confirmButtonColor":"#dc3545"
+
+            })
+            .then(function(result){
+                if(result.isConfirmed){
+                    window.location.href = "/administrar/gestionarD/eliminarD/"+id+"/"
+                }
+            })
+
+            
+        }
+    </script>
+
+{% endblock  %}
+
+{% block contenido  %}
+{% load humanize %}
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header-mb-3" style="background: #7AB730 ;height: 3rem;">
+                    <h2 class="h2 text-center" style="color:#F3F3F3;">Listado de Destinos</h2>
+                </div>
+                <table class=" table table-striped table-hover table-responsive-sm">
+                    <tr>
+                        <th>Lugar</th>
+                        <th>Actividad</th>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                        <th>Opciones</th>
+                    </tr>
+
+                    {% for d in destinos %}
+                    <tr>
+                        
+                        <td>{{d.lugar | title}}</td>
+                        <td>{{d.actividad | title}}</td>
+                        <td>{{d.fecha | title}}</td>
+                        <td>{{d.monto | intcomma }}</td>
+                        <td>
+                            <a href="{% url 'modificarD' d.id %}" class="btn btn-info btn-sm">modificar</a>
+                            <a href="#" onclick="eliminarDestino({{d.id}})" class="btn btn-danger btn-sm">eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <div class="card-footer">
+                    <a href="{% url 'agregarD' %}" class="btn btn-success btn">Agregar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

@@ -1,0 +1,151 @@
+{% extends 'gestionarDestinos/base.html' %}
+{% load static %}
+{% block usuario %}active{% endblock  %}
+{% block contenido %}
+<link rel="stylesheet" href="{% static 'gestionarDestinos/css/bootstrap.min.css'%}">
+<br>
+<br>
+<br>
+<h1 style="padding-left: 142px">Configuracion</h1>
+<br>    
+
+
+      
+      <table class="table" id="tabla">
+        <thead>
+          
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Correo electronico</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+          
+            <th scope="col">Cambiar contraseña</th>
+            <th scope="col">Eliminar</th>
+        
+          </tr>
+        </thead>
+       {% if user.is_staff%}
+
+<button class="btn btn-primary"  style="margin-top: 20px;margin-left:3%;"><a style="text-decoration:none;color:white;" href="/register/">Añadir nuevo usuario</a></button>
+        <tbody>
+          {% for n in User  %}
+          <tr>
+            <th  scope="row">{{forloop.counter}}</th>
+            <td>{{n.username}}</td>
+            <td>{{n.email}}</td>
+            <td>{{n.first_name}}</td>
+            <td>{{n.last_name}}</td>
+             
+            <td><button class="btn btn-link"  data-bs-toggle="offcanvas" data-bs-target="#{{n.username}}" aria-controls="offcanvasRight"><img src="{% static 'gestionarDestinos/img/icons8-editing-64.png'%}" class="icons"></button></td>
+          
+            <form action="/eliminarUsuario/" method="GET">
+              <input type="hidden" value="{{n.id}}" name="usuarioID">
+            <td><button class="btn btn-light"><img src="{% static 'app/img/icons8-trash50.png'%}" class="icons"></button></td> 
+            </form> 
+           
+            
+
+            
+           
+        </tr>
+        
+          <!--offcanvas modificar-->
+          <form action="/editarUsuario/" method="POST"> {% csrf_token %}
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="{{n.username}}" >
+            <div class="offcanvas-header">
+              <h5 id="offcanvasRightLabel">Modificar</h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div id="cuadro">
+              
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1"  class="form-label">Introduzca nueva contraseña</label>
+                  <input type="passwoord" required class="form-control" placeholder="Contraseña" id="noticia" name="contraE" cols="30" rows="10"></input>
+                </div>
+                
+                <div id="trio">
+                  <input type="hidden" value="{{n.id}}" name="usuarioID">
+                <button type="submit" class="btn btn-primary">Modificar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+          {% endfor %}
+
+        </tbody>
+        {% endif %}
+        <tbody>
+          
+          <tr>
+            <th  scope="row">{{forloop.counter}}</th>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+              
+            <td><button class="btn btn-link"  data-bs-toggle="offcanvas" data-bs-target="#{{user.username}}" aria-controls="offcanvasRight"><img src="{% static 'app/img/icons8-editing-64.png'%}" class="icons"></button></td>
+          
+            <form action="/eliminarUsuario/" method="GET">
+              <input type="hidden" value="{{n.id}}" name="usuarioID">
+            <td><button class="btn btn-light"><img src="{% static 'app/img/icons8-trash-bin-50.png'%}" class="icons"></button></td> 
+            </form> 
+           
+            
+
+            
+           
+        </tr>
+        
+          <!--offcanvas modificar-->
+          <form action="/editarUsuario/" method="POST"> {% csrf_token %}
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="{{user.username}}" >
+            <div class="offcanvas-header">
+              <h5 id="offcanvasRightLabel">Modificar</h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div id="cuadro">
+            
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1"  class="form-label">Introduzca nueva contraseña</label>
+                  <input type="passwoord" required class="form-control" placeholder="Contraseña" id="noticia" name="contraE" cols="30" rows="10"></input>
+                </div>
+                
+                <div id="trio">
+                  <input type="hidden" value="{{user.id}}" name="usuarioID">
+                <button type="submit" class="btn btn-primary">Modificar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+          
+
+        </tbody>
+
+      </table>
+     {%if user.is_staff%}
+      <script src="{% static 'gestionarDestinos/js/bootstrap.bundle.min.js'%}"></script>
+      <script src="{% static 'gestionarDestinos/js/bootstrap.min.js'%}"></script>
+      <script>
+        // Obtenemos todas las filas de la tabla
+        const filas = document.querySelectorAll('#tabla tbody tr');
+      
+        // Iteramos por cada fila
+        filas.forEach((fila, index) => {
+          // Obtenemos el primer elemento de la fila (el número)
+          const numero = fila.querySelector('th');
+      
+          // Si el número es null o está vacío, ocultamos la fila
+          if (!numero || !numero.textContent.trim()) {
+            fila.style.display = 'none';
+          }
+        });
+      </script>
+{% endif %}
+      {% endblock %}
+ 

@@ -1,0 +1,58 @@
+{% extends 'blog/base.html' %}
+{% block blog %}active{% endblock  %}
+{% block contenido %}
+{% load static %}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row">
+           
+                <div class="row pb-3">
+                    {% for b in blogs  %}
+                    <div class="col-md-4 ">
+                        <div class="blog-item">
+                            <div class="position-relative">
+                                <img class="img-fluid w-100" src="{{b.image.url}}" alt="">
+                            </div>
+                            <div class="bg-white p-4">
+                                <div class="d-flex mb-2">
+                                    <a class="text-primary text-uppercase text-decoration-none" href="{% url 'gestionarC' b.id %}">{{b.autor}}</a>
+                                    <span class="text-primary px-2">|</span>
+                                    <a class="text-primary text-uppercase text-decoration-none" href="{% url 'gestionarC' b.id %}">{{b.nombre}}</a>
+                                </div>
+                                <p>{{b.info}}</p>
+                                <a class="h5 m-0 text-decoration-none" href="{% url 'gestionarC' b.id %}">Ver más</a>
+                            </div>
+                        </div>
+                    </div>                    
+                    {% endfor %}
+                </div>
+            
+        </div>
+    </div>
+</div>
+<div class="container">
+        <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">Categorías</h4>
+        {%for categoria in cat  %}
+        <div class="row">
+            <div class = " col-md-4">
+            <ul class="list-inline m-0">
+                
+                    
+                <li class="mb-3 d-flex justify-content-between align-items-center">
+                    <a class="text-dark" href="{% url 'categoria' categoria.id %}"><i class="fa fa-angle-right text-primary mr-2"></i> {{categoria.nombre}}</a>
+                    
+                </li>
+            </div>  
+                </ul>
+        </div>
+        {%endfor%}
+        
+</div>
+
+
+
+
+
+              
+{% endblock  %}

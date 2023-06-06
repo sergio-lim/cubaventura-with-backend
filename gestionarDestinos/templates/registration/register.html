@@ -1,0 +1,55 @@
+
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+     <link rel="stylesheet" href="{% static 'gestionarDestinos/css/bootstrap.min.css'%}" />
+     <link rel="stylesheet" href="{% static 'gestionarDestinos/css/styleLogin.css'%}" />
+
+</head>
+<body style="background-color: #001828;">
+
+<div class="container" style="margin:auto; width:50%;border:1px solid white;text-align: center;margin-top: 20px;">
+
+
+    <h3 style="margin-bottom:30px; color: rgb(230, 221, 244);margin-top: 10px;">Register</h3>
+
+   {% if user.is_staff %}
+    <form method="Post" style="text-align: start;margin-bottom: 45px;margin-left: 30%;">
+        {% csrf_token%}
+
+          <div class="card" style="width: 18rem;background-color: rgb(230, 221, 244); ;">
+                    <div class="card-body">
+                      <h5 class="card-title">Inicio</h5>
+                         {{ formR.as_p}}
+                        <input class="btn btn-primary" style="margin-top: 20px;margin-left:20%;" type="submit"  value="Register" onclick="alert('User created')"></a>
+                    </div>
+                  </div>
+
+
+    </form>
+    {% else %}
+    <form method="Post" style="text-align: start;margin-bottom: 45px;margin-left: 30%;">
+        {% csrf_token%}
+
+          <div class="card" style="width: 18rem;background-color: rgb(230, 221, 244); ;">
+                    <div class="card-body">
+                      <h5 class="card-title">Inicio</h5>
+                         {{ formRN.as_p}}
+                        <input class="btn btn-primary" style="margin-top: 20px;margin-left:20%;" type="submit"  value="Register" onclick="alert('User created')"></a>
+                    </div>
+                  </div>
+
+
+    </form>
+
+    {% endif %}
+    </div>
+</div>
+
+    <script src="{% static 'gestionarDestinos/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+</html>

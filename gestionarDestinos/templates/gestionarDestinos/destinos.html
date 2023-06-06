@@ -1,0 +1,38 @@
+{% extends 'gestionarDestinos/base.html' %}
+
+{% block destinos %}active{% endblock  %}
+
+{% block contenido %}
+
+    <div class="container-fluid py-5">
+        <div class="container pt-5 pb-3">
+            <div class="text-center mb-3 pb-3">
+                <h1>Destinos</h1>
+            </div>
+            <div class="row">
+                {% for d in destinos   %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="package-item bg-white mb-2">
+                            <img class="img-fluid" src="{{d.img.url}}" alt="">
+                            <div class="p-4">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i>{{d.lugar}}</small>
+                                    <small class="m-0"><i class="fa fab fas fa-route  text-primary mr-2"></i>{{d.actividad}}</small>
+                                    <small class="m-0"><i class="fa  fa-calendar-alt text-primary mr-2"></i>{{d.fecha}}</small>
+                                </div>
+                                <a class="h5 text-decoration-none" href="">Descubre Lugares Asombrosos con Nosotros</a>
+                                <div class="border-top mt-4 pt-4">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="m-0">${{d.monto}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Reservar</button>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock  %}
